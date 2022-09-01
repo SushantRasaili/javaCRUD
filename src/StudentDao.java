@@ -2,6 +2,15 @@
 public class StudentDao {
 	String firstName,lastName,address,grade,gender,section;
 	long contactNumber;
+	int id;
+	
+	public int getId() {
+		return id;
+	}
+	
+	public void setId(int id) {
+		this.id = id;
+	}
 	public String getFirstName() {
 		return firstName;
 	}

@@ -1,4 +1,7 @@
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class StudentImpl implements Student{
 	
@@ -21,6 +24,38 @@ public class StudentImpl implements Student{
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public ArrayList<StudentDao> getStudentList() {
+		ArrayList<StudentDao> studentList = new ArrayList<StudentDao>();
+		 String sql = "select * from studentform";
+		 
+		 try {
+			ps = DatabaseCon.getConnection().prepareStatement(sql);
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()) {
+				StudentDao studentDao = new StudentDao();
+				studentDao.setId(rs.getInt("id"));
+				studentDao.setFirstName(rs.getString("firstname"));
+				studentDao.setLastName(rs.getString("lasname"));
+				studentDao.setAddress(rs.getString("address"));
+				studentDao.setGrade(rs.getString("class"));
+				studentDao.setGender(rs.getString("gender"));
+				studentDao.setSection(rs.getString("section"));
+				studentDao.setContactNumber(rs.getLong("contacts"));
+				
+				studentList.add(studentDao);		
+			}
+			
+		} catch (SQLException e) {
+		
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return studentList;
 	}
 	
 }
