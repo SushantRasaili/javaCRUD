@@ -113,4 +113,25 @@ public class StudentImpl implements Student{
 		return studentList;
 	}
 	
+	
+	public void updateStudent(StudentDao student) {
+		String sql = "update studentform set firstname=?,lasname=?,address=?,"
+				+ "class=?,gender=?,section=?,contacts=? where id=?";
+			 
+			try {
+				ps = DatabaseCon.getConnection().prepareStatement(sql);
+				ps.setString(1, student.getFirstName());
+				ps.setString(2, student.getLastName());
+				ps.setString(3, student.getAddress());
+				ps.setString(4, student.getGrade());
+				ps.setString(5, student.getGender());
+				ps.setString(6, student.getSection());
+				ps.setLong(7, student.getContactNumber());
+				ps.setInt(8,student.getId());
+				ps.executeUpdate();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	
 }

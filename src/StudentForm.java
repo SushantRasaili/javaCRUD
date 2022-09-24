@@ -1,8 +1,13 @@
 
-import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-import javax.swing.*;
-import java.awt.event.*;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
 
 //import javax.swing.DefaultComboBoxModel;
 //import javax.swing.JComboBox;
@@ -15,6 +20,14 @@ import java.awt.event.*;
 
 
 public class StudentForm {
+	public JLabel idlabel;
+	public JTextField fnVal;
+	public JTextField lnVal;
+	public JTextField addrVal;
+	public JTextField conVal;
+	public JComboBox clasVal;
+	public JComboBox genderVal;
+	public JComboBox secVal;
 
 	public StudentForm() {
 		JFrame frame = new JFrame("Student Form");
@@ -26,9 +39,12 @@ public class StudentForm {
 		JLabel fName = new JLabel("First Name");
 		fName.setBounds(20, 20, 100, 20);
         frame.getContentPane().add(fName);
-       
         
-        JTextField fnVal = new JTextField();
+         idlabel = new JLabel("");
+        idlabel.setBounds(361, 24, 100, 25);
+        frame.getContentPane().add(idlabel);
+        
+         fnVal = new JTextField();
         fnVal.setBounds(100,20,100,20);
         frame.getContentPane().add(fnVal);
         
@@ -37,7 +53,7 @@ public class StudentForm {
         frame.getContentPane().add(lName);
       
         
-        JTextField lnVal = new JTextField();
+         lnVal = new JTextField();
         lnVal.setBounds(100, 60, 100, 20);
         frame.getContentPane().add(lnVal);
         
@@ -47,7 +63,7 @@ public class StudentForm {
         frame.getContentPane().add(addr);
         
         
-        JTextField addrVal = new JTextField(20);
+         addrVal = new JTextField(20);
         addrVal.setBounds(100, 100, 100, 20);
         frame.getContentPane().add(addrVal);
        
@@ -57,7 +73,7 @@ public class StudentForm {
         frame.getContentPane().add(conNum);
         
         
-        JTextField conVal= new JTextField(20);
+        conVal= new JTextField(20);
         conVal.setBounds(100, 140, 100, 20);
         frame.getContentPane().add(conVal);
       
@@ -67,7 +83,7 @@ public class StudentForm {
         frame.getContentPane().add(clas);
        
         
-        JComboBox clasVal = new JComboBox();
+        clasVal = new JComboBox();
         clasVal.setModel(new DefaultComboBoxModel(new String[] {"Nursery","LKG","UKG"}));
         clasVal.setBounds(100, 180, 100, 20);
         frame.getContentPane().add(clasVal);
@@ -76,7 +92,7 @@ public class StudentForm {
         gender.setBounds(20, 220, 100, 20);
         frame.getContentPane().add(gender);
         
-        JComboBox genderVal = new JComboBox();
+        genderVal = new JComboBox();
         genderVal.setModel(new DefaultComboBoxModel(new String[] {"Male","Female","Others"}));
         genderVal.setBounds(100, 220, 100, 20);
         frame.getContentPane().add(genderVal);
@@ -85,7 +101,7 @@ public class StudentForm {
         sec.setBounds(20, 260, 100, 20);
         frame.getContentPane().add(sec);
         
-        JComboBox secVal = new JComboBox();
+        secVal = new JComboBox();
         secVal.setModel(new DefaultComboBoxModel(new String[] {"A","B","C","D"}));
         secVal.setBounds(100, 260, 100, 20);
         frame.getContentPane().add(secVal);
@@ -104,9 +120,15 @@ public class StudentForm {
         });
         frame.getContentPane().add(backBtn);
         
+      
+        
         subBtn.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		StudentDao student = new StudentDao();
+        		if(idlabel.getText()!=null || idlabel.getText() != "") {
+        			student.setId(Integer.valueOf(idlabel.getText()));	
+        		}
+        		
         		student.setFirstName(fnVal.getText());
         		student.setLastName(lnVal.getText());
         		student.setAddress(addrVal.getText());
@@ -115,13 +137,24 @@ public class StudentForm {
         		student.setGender((String)genderVal.getSelectedItem());
         		student.setSection((String)secVal.getSelectedItem());
         		
-           Student s1= new StudentImpl();
-           s1.saveStudent(student);
+        		   Student s1= new StudentImpl();
+        		
+        		if(idlabel.getText()==null || idlabel.getText()=="") {
+//        			System.out.println("hello");
+        			 s1.saveStudent(student);
+        		}
+        		else {
+        			s1.updateStudent(student);
+        		}
+        		
+          
             frame.dispose();
             new StudentDetails().setVisible(true);
           	
         		
         	}
+
+		
        
         });
       
@@ -142,5 +175,4 @@ public class StudentForm {
 		// TODO Auto-generated method stub
 		
 	}
-
 }

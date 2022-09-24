@@ -9,4 +9,8 @@ public interface Student {
 	
 	public ArrayList<StudentDao> searchName(String name);
 	
+	public void updateStudent(StudentDao student);
+	
+	
+	
 }

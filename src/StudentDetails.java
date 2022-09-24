@@ -1,4 +1,5 @@
 import java.awt.EventQueue;
+import java.awt.*;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -81,30 +82,11 @@ public class StudentDetails extends JFrame {
 		contentPane.add(lblSearch);
 		
 		searchBox = new JTextField();
-		
-						
-		
 		searchBox.addKeyListener(new KeyAdapter() {
-			
 			@Override
 			public void keyPressed(KeyEvent e) {
 				String name = searchBox.getText();
-                System.out.println(name);
-				
-				
-				ArrayList<StudentDao> studentDatas = getStudents.searchName(name);;
-				DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
-				tableModel.setRowCount(0);
-				for(StudentDao value: studentDatas) {
-					tableModel.addRow(new Object[] {value.getId(),value.getFirstName(),
-							value.getLastName(),
-							value.getAddress(),
-							value.getGrade(),
-							value.getGender(),
-							value.getSection(),
-							value.getContactNumber()
-							});
-				}
+				searchDataInTable(name);	
 			}
 		});
 		
@@ -127,6 +109,36 @@ public class StudentDetails extends JFrame {
 		contentPane.add(btnNewButton);
 		
 		btnNew = new JButton("Edit");
+		btnNew.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
+				int row = table.getSelectedRow();
+				Object id =  tableModel.getValueAt(row,0);				
+				Object firstName = tableModel.getValueAt(row,1);
+				Object lastName = tableModel.getValueAt(row,2);
+				Object address = tableModel.getValueAt(row,3);
+				Object clas = tableModel.getValueAt(row,4);
+				Object gender = tableModel.getValueAt(row,5);
+				Object section = tableModel.getValueAt(row,6);
+				Object contacts = tableModel.getValueAt(row,7);	
+				
+				StudentForm student = new StudentForm();
+				student.idlabel.setText(id.toString());
+				student.fnVal.setText(firstName.toString());	
+				student.lnVal.setText(lastName.toString());
+				student.addrVal.setText(address.toString());
+				student.conVal.setText(contacts.toString());
+				student.clasVal.setSelectedItem(clas);
+				student.genderVal.setSelectedItem(gender);
+				student.secVal.setSelectedItem(section);
+				
+				dispose();
+//				new StudentForm().setVisible(true);
+			}
+		});
+		
+		
+		
 		btnNew.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnNew.setBounds(215, 526, 85, 21);
 		contentPane.add(btnNew);
@@ -166,6 +178,30 @@ public class StudentDetails extends JFrame {
 					value.getContactNumber()
 					});
 		}
+	}
+	
+	public void searchDataInTable(String name) {
+		
+		
+		if(name!=null) {
+			ArrayList<StudentDao> studentDatas = getStudents.searchName(name);
+			DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
+			tableModel.setRowCount(0);
+			for(StudentDao value: studentDatas) {
+				tableModel.addRow(new Object[] {value.getId(),value.getFirstName(),
+						value.getLastName(),
+						value.getAddress(),
+						value.getGrade(),
+						value.getGender(),
+						value.getSection(),
+						value.getContactNumber()
+						});
+			}
+		}else {
+			loadDataInTable();
+		}
+		
+		
 	}
 	
 }
