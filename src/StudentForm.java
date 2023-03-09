@@ -1,6 +1,7 @@
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.*;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -31,7 +32,7 @@ public class StudentForm {
 
 	public StudentForm() {
 		JFrame frame = new JFrame("Student Form");
-//		frame.getContentPane().setLayout(new FlowLayout());
+//		frame.getContentPane().setLayout(new GridLayout(8,2));
 		frame.getContentPane().setLayout(null);
 		frame.setSize(500, 400);
 		frame.setDefaultCloseOperation(frame.EXIT_ON_CLOSE);
@@ -44,7 +45,7 @@ public class StudentForm {
         idlabel.setBounds(361, 24, 100, 25);
         frame.getContentPane().add(idlabel);
         
-         fnVal = new JTextField();
+         fnVal = new JTextField(20);
         fnVal.setBounds(100,20,100,20);
         frame.getContentPane().add(fnVal);
         
@@ -53,7 +54,7 @@ public class StudentForm {
         frame.getContentPane().add(lName);
       
         
-         lnVal = new JTextField();
+         lnVal = new JTextField(20);
         lnVal.setBounds(100, 60, 100, 20);
         frame.getContentPane().add(lnVal);
         

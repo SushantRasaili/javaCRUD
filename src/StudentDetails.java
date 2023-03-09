@@ -25,8 +25,7 @@ public class StudentDetails extends JFrame {
 	private JPanel contentPane;
 	private JTable table;
 	private JTextField searchBox;
-	private JButton btnNew;
-	private JButton btnDelete;
+	private JButton btnNew,btnDelete;
 
 	Student getStudents = new StudentImpl();
 	
@@ -46,12 +45,12 @@ public class StudentDetails extends JFrame {
 		});
 	}
 
-	/**
-	 * Create the frame.
+	/*Create the frame.
 	 */
 	public StudentDetails() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 976, 623);
+//		setBounds(100, 100, 976, 623);
+		setSize(900,600);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);

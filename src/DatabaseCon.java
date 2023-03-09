@@ -14,3 +14,4 @@ public class DatabaseCon{
 		return DriverManager.getConnection(URL+DB_NAME,USER_NAME,PASSWORD);
 	}
 }
+
